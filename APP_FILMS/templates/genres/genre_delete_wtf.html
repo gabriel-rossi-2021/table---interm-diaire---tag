@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %} Effacer un Collaborateur (WTF) {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Effacer un Collaborateur
+			</p>
+			<form action="" method="POST" novalidate>
+				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+				{{ form_delete.hidden_tag() }}
+				<table class="table table-bordered table-sm">
+					{% if data_collaborateur_associes %}
+						<h3>Ce collaborateur est associé avec le(s) detail(s) suivant(s) :</h3>
+					{% else %}
+						<h3>Ce collaborateur à effacer n'est associé à aucun détails.</h3>
+					{% endif %}
+					{% if data_collaborateur_associes %}
+						<thead>
+							<tr>
+								<th>
+									Details(s)
+								</th>
+							</tr>
+						</thead>
+						{% for row in data_collaborateur_associes %}
+							<tbody>
+								<tr>
+                                    <td>
+										{{ row.sexe }}
+									</td>
+									<td>
+										{{ row.rue }}
+									</td>
+                                    <td>
+										{{ row.numero_rue }}
+									</td>
+                                    <td>
+										{{ row.npa }}
+									</td>
+                                    <td>
+										{{ row.ville }}
+									</td>
+                                    <td>
+										{{ row.pays }}
+									</td>
+                                    <td>
+										{{ row.telephone }}
+									</td>
+                                    <td>
+										{{ row.date_entree_entreprise }}
+									</td>
+								</tr>
+							</tbody>
+						{% endfor %}
+					{% endif %}
+				</table>
+
+
+				<div class="form-group">
+					<p>
+						{{ form_delete.nom_collaborateur_delete_wtf.label }}<br>
+						{{ form_delete.nom_collaborateur_delete_wtf(size=32, readonly=true) }}<br>
+						{% for error in form_delete.nom_collaborateur_delete_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+                    <p>
+						{{ form_delete.prenom_collaborateur_delete_wtf(size=32, readonly=true) }}<br>
+						{% for error in form_delete.prenom_collaborateur_delete_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+				</div>
+				{{ form_delete.submit_btn_conf_del(class="btn btn-info") }}
+
+				{% if btn_submit_del %}
+					{{ form_delete.submit_btn_del(class="btn btn-danger") }}
+				{% endif %}
+
+				{{ form_delete.submit_btn_annuler(class="btn btn-primary") }}
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

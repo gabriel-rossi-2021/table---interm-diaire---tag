@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} Afficher Identification {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Identification à disposition.
+			</p>
+            <table class="table table-bordered table-sm">
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th class="align-middle">
+                            id
+                        </th>
+                        <th class="align-middle">
+                            Nom utilisateur
+                        </th>
+                        <th class="align-middle">
+                            Courriel
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                    </tr>
+                </thead>
+            {% endif %}
+
+            {% for row in data %}
+				<tbody>
+					<tr>
+						<td class="align-middle">
+							{{ row.id_identification }}
+						</td>
+						<td class="align-middle">
+							{{ row.nom_utilisateur }}
+						</td>
+                        <td class="align-middle">
+							{{ row.courriel}}
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-primary" href="{{ url_for('identification_ajouter_wtf') }}" role="button">Ajouter</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-warning" href="{{ url_for('identification_update_wtf', id_identification_btn_edit_html=row.id_identification) }}" role="button">Edit</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-danger" href="{{ url_for('identification_delete_wtf', id_identification_btn_delete_html=row.id_identification) }}" role="button">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+            {% else %}
+				<tbody>
+					<tr>
+						<td>
+							Aucun collaborateur.
+						</td>
+						<td>
+							<a class="btn btn-primary" href="{{ url_for('identification_ajouter_wtf') }}" role="button">Ajouter</a>
+						</td>
+					</tr>
+				</tbody>
+            {% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
